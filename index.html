@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Vitalice | Cold Plunge & Sauna Systems</title>
+<link rel="icon" type="image/png" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -188,6 +189,7 @@ nav{position:fixed;inset:0 0 auto;z-index:999;display:flex;align-items:center;ju
 .collab-brand-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;opacity:.4}
 .collab-brand-name{font-size:clamp(17px,2vw,24px);font-weight:800;color:var(--navy-deep);letter-spacing:-.02em;transition:.2s;text-align:center;line-height:1.2}
 .collab-brand-type{font-size:9px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gray);opacity:.6}
+.collab-brand-logo{width:100px;height:100px;object-fit:contain;margin-bottom:12px;border-radius:50%}
 .collab-cta{font-size:11px;font-weight:500;color:var(--gray);display:flex;align-items:center;justify-content:center;gap:10px}
 .collab-cta::before,.collab-cta::after{content:'';flex:1;max-width:80px;height:1px;background:var(--mist)}
 @media(max-width:900px){.collab{padding:72px 16px}.collab-grid{flex-direction:column;gap:0}.collab-brand{border-right:none;border-bottom:1px solid var(--mist);width:100%;padding:28px 16px}.collab-brand:last-child{border-bottom:none}}
@@ -389,55 +391,367 @@ footer{background:var(--navy-deep);border-top:1px solid rgba(30,107,158,.2)}
 
 
 
-/* ── CRITICAL MOBILE FIX - EVERYTHING BREAKS CORRECTLY ── */
-@media(max-width:768px){
-  /* HERO - COMPLETELY VERTICAL */
-  .hero { display: flex !important; flex-direction: column-reverse !important; height: auto !important; }
-  .hl { width: 100% !important; order: 2 !important; padding: 30px 16px !important; }
-  .hr { width: 100% !important; order: 1 !important; height: 280px !important; }
-  .hr img { width: 100% !important; height: 100% !important; }
-  
-  /* HERO TEXT */
-  .hl-logo { width: clamp(120px, 22vw, 180px) !important; margin-bottom: 16px !important; }
-  .eye { font-size: 7px !important; margin-bottom: 8px !important; }
-  .hl-tag { font-size: 10px !important; margin-bottom: 20px !important; }
-  .hctas { flex-direction: column !important; gap: 10px !important; }
-  .hbtn, .hbtn-o { width: 100% !important; }
-  
-  /* NAV - HIDE OVERFLOW */
-  nav { padding: 8px 10px !important; }
-  .nr { gap: 2px !important; }
-  .nr > li > a { font-size: 7px !important; padding: 4px 6px !important; white-space: normal !important; line-height: 1 !important; }
-  .nl img { height: 18px !important; }
-  
-  /* PRODUCT GRID - SINGLE COLUMN */
-  .grid { display: flex !important; flex-direction: column !important; }
-  .card { width: 100% !important; }
-  .ci { height: 200px !important; }
-  
-  /* REMOVE UNNECESSARY ELEMENTS */
-  .trust-item { padding: 4px 8px !important; font-size: 9px !important; }
-  
-  /* STATS */
-  .stat { max-width: 100% !important; padding: 20px 10px !important; }
-  
-  /* GENERAL PADDING */
-  .gw { padding: 30px 12px !important; }
-  .ph { padding: 70px 12px 40px !important; }
-  .ph-h1 { font-size: clamp(20px, 3.5vw, 28px) !important; }
-  .ph-sub { font-size: 11px !important; }
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE - PROFESSIONAL DESIGN
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  /* Override desktop hero media query */
+  nav { padding: 10px 16px !important; }
+  .dd { min-width: 220px; }
+  .hero { grid-template-columns: 1fr !important; }
+  .hr { min-height: 40vh !important; order: -1 !important; }
+  .hl { padding: 20px 16px 40px !important; }
 }
 
-@media(max-width:480px){
-  .hero { flex-direction: column-reverse !important; }
-  .hl { padding: 20px 10px !important; }
-  .hr { height: 220px !important; }
-  .hl-logo { width: clamp(100px, 20vw, 140px) !important; }
-  nav { padding: 6px 8px !important; }
-  .nr > li > a { font-size: 6px !important; padding: 3px 4px !important; }
-  .nl img { height: 16px !important; }
-  .gw { padding: 20px 10px !important; }
-  .grid { gap: 12px !important; }
+@media (max-width: 768px) {
+  /* ─────────────────────────────────────────────────────────
+     NAVIGATION - CLEAN AND READABLE
+     ───────────────────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    padding: 12px 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 60px !important;
+    border-bottom: 1px solid rgba(135,206,235,.1) !important;
+  }
+
+  .nl {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .nl img {
+    height: 24px !important;
+    width: auto !important;
+  }
+
+  .nr {
+    display: flex !important;
+    gap: 0 !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+
+  .nr > li > a {
+    font-size: 9px !important;
+    padding: 5px 7px !important;
+    white-space: nowrap !important;
+    line-height: 1.2 !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     HERO SECTION - PROPER LAYOUT
+     ───────────────────────────────────────────────────────── */
+  .hero {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin-top: 60px;
+  }
+
+  .hl {
+    width: 100% !important;
+    padding: 36px 16px !important;
+    background: var(--navy-deep) !important;
+    order: 2 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  .hl::before {
+    display: none !important;
+  }
+
+  .hr {
+    width: 100% !important;
+    height: 300px !important;
+    order: 1 !important;
+    overflow: hidden !important;
+  }
+
+  .hr img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     HERO TEXT & LOGO
+     ───────────────────────────────────────────────────────── */
+  .hl-logo {
+    width: 150px !important;
+    height: auto !important;
+    margin-bottom: 18px !important;
+    max-width: 100% !important;
+  }
+
+  .hl-ic {
+    display: none !important;
+  }
+
+  .eye {
+    font-size: 8px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .eye::before {
+    display: none !important;
+  }
+
+  .hl-tag {
+    font-size: 13px !important;
+    margin-bottom: 24px !important;
+    line-height: 1.5 !important;
+    border-left: 2px solid var(--blue) !important;
+    padding-left: 12px !important;
+    color: rgba(135,206,235,.6) !important;
+  }
+
+  .scroll {
+    display: none !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     BUTTONS - CLEAR AND TOUCHABLE
+     ───────────────────────────────────────────────────────── */
+  .hctas {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .hbtn,
+  .hbtn-o {
+    width: 100% !important;
+    padding: 16px 14px !important;
+    font-size: 12px !important;
+    min-height: 48px !important;
+    border: none !important;
+  }
+
+  .hbtn {
+    background: var(--blue) !important;
+    color: #fff !important;
+  }
+
+  .hbtn-o {
+    background: rgba(135,206,235,.15) !important;
+    color: rgba(135,206,235,.8) !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     PRODUCT GRID
+     ───────────────────────────────────────────────────────── */
+  .grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .card {
+    width: 100% !important;
+  }
+
+  .ci {
+    height: 280px !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     SECTIONS & TEXT
+     ───────────────────────────────────────────────────────── */
+  .gw {
+    padding: 40px 16px !important;
+    max-width: 100% !important;
+  }
+
+  .gl {
+    font-size: 9px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .ph {
+    padding: 48px 16px !important;
+  }
+
+  .ph-h1 {
+    font-size: 26px !important;
+    line-height: 1.2 !important;
+  }
+
+  .ph-sub {
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     STATS
+     ───────────────────────────────────────────────────────── */
+  .stats {
+    padding: 40px 16px !important;
+    flex-wrap: wrap !important;
+    gap: 24px !important;
+  }
+
+  .stat {
+    max-width: 100% !important;
+    border-right: none !important;
+    padding: 0 !important;
+  }
+
+  .stat-n {
+    font-size: 32px !important;
+  }
+
+  .stat-l {
+    font-size: 9px !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     TRUST & BADGES
+     ───────────────────────────────────────────────────────── */
+  .trust {
+    padding: 8px 16px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .trust-item {
+    padding: 5px 8px !important;
+    font-size: 9px !important;
+    border-right: none !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     COLLABORATORS
+     ───────────────────────────────────────────────────────── */
+  .collab {
+    padding: 40px 16px !important;
+  }
+
+  .collab-grid {
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  .collab-brand {
+    border-right: none !important;
+    border-bottom: 1px solid var(--mist) !important;
+    padding: 24px 0 !important;
+    width: 100% !important;
+  }
+
+  .collab-brand:last-child {
+    border-bottom: none !important;
+  }
+
+  .collab-brand-logo {
+    width: 100px !important;
+    height: 100px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SMALL PHONES (480px and below)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  nav {
+    padding: 10px 12px !important;
+  }
+
+  .nl img {
+    height: 22px !important;
+  }
+
+  .nr > li > a {
+    font-size: 8px !important;
+    padding: 4px 5px !important;
+  }
+
+  .hero {
+    margin-top: 52px;
+  }
+
+  .hl {
+    padding: 28px 14px !important;
+  }
+
+  .hr {
+    height: 260px !important;
+  }
+
+  .hl-logo {
+    width: 130px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .hl-tag {
+    font-size: 12px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .hctas {
+    gap: 12px !important;
+  }
+
+  .hbtn,
+  .hbtn-o {
+    padding: 14px 12px !important;
+    font-size: 11px !important;
+    min-height: 44px !important;
+  }
+
+  .gw {
+    padding: 32px 14px !important;
+  }
+
+  .ph {
+    padding: 40px 14px !important;
+  }
+
+  .ph-h1 {
+    font-size: 22px !important;
+  }
+
+  .ph-sub {
+    font-size: 12px !important;
+  }
+
+  .grid {
+    gap: 12px !important;
+  }
+
+  .ci {
+    height: 240px !important;
+  }
+
+  .stat-n {
+    font-size: 28px !important;
+  }
+
+  .collab {
+    padding: 32px 14px !important;
+  }
+
+  .trust {
+    padding: 6px 12px !important;
+  }
+
+  .trust-item {
+    padding: 4px 6px !important;
+    font-size: 8px !important;
+  }
+}
   .card { margin-bottom: 8px !important; }
 }
 
@@ -507,7 +821,7 @@ footer{background:var(--navy-deep);border-top:1px solid rgba(30,107,158,.2)}
         </div>
       </div>
     </li>
-    <li><a href="#">Merch</a></li>
+    <li><a href="merch.html">Merch</a></li>
     <li><a href="index.html#contacto">Contacto</a></li>
   </ul>
 </nav>
@@ -681,24 +995,29 @@ footer{background:var(--navy-deep);border-top:1px solid rgba(30,107,158,.2)}
   <p class="collab-sub rv">Estamos presentes en los eventos deportivos más importantes. Marcas líderes nos eligen para llevar la recuperación de alto rendimiento a sus atletas.</p>
   <div class="collab-grid">
     <div class="collab-brand rv">
-      <div class="collab-brand-dot"></div>
+      <img src="logos/hielito.png" alt="Hielito Club" class="collab-brand-logo">
       <div class="collab-brand-name">Hielito Club</div>
       <div class="collab-brand-type">Wellness & Recuperación</div>
     </div>
     <div class="collab-brand rv">
-      <div class="collab-brand-dot"></div>
+      <img src="logos/codea.png" alt="Codea" class="collab-brand-logo">
       <div class="collab-brand-name">Codea</div>
       <div class="collab-brand-type">Colaboración Corporativa</div>
     </div>
     <div class="collab-brand rv">
-      <div class="collab-brand-dot"></div>
+      <img src="logos/capital-padel.png" alt="Capital Padel" class="collab-brand-logo">
       <div class="collab-brand-name">Capital Padel</div>
       <div class="collab-brand-type">Deporte & Alto Rendimiento</div>
     </div>
     <div class="collab-brand rv">
-      <div class="collab-brand-dot"></div>
+      <img src="logos/la-perla.png" alt="La Perla Run Club" class="collab-brand-logo">
       <div class="collab-brand-name">La Perla Run Club</div>
       <div class="collab-brand-type">Running & Comunidad</div>
+    </div>
+    <div class="collab-brand rv">
+      <img src="logos/slice-tennis.png" alt="Slice Tennis Academy" class="collab-brand-logo">
+      <div class="collab-brand-name">Slice Tennis Academy</div>
+      <div class="collab-brand-type">Tenis & Entrenamiento</div>
     </div>
   </div>
   <div class="collab-cta rv">¿Tu marca quiere ser parte? Contáctanos</div>
