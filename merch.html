@@ -233,7 +233,7 @@ nav{position:fixed;inset:0 0 auto;z-index:999;display:flex;align-items:center;ju
         <div class="detail-info">
           <h2><strong id="detailModel"></strong><span id="detailName"></span></h2>
           <div class="detail-meta">
-            <span class="detail-price">$30</span>
+            <span class="detail-price">$<span id="detailPrice">30</span></span>
             <span class="detail-shipping">Envío gratis</span>
           </div>
           <p class="detail-desc" id="detailDesc"></p>
@@ -259,7 +259,8 @@ nav{position:fixed;inset:0 0 auto;z-index:999;display:flex;align-items:center;ju
 const products = [
   {id: 1, model: 'Vitalice Classic Fit', name: 'T-Shirt', colors: ['navy', 'grey'], images: {navy: './tshirt_navy.png', grey: './tshirt_grey.png'}, desc: 'Camiseta premium 100% Pima Cotton. Minimalista y versátil.', hasSizes: true},
   {id: 2, model: 'Iceberg Classic Fit', name: 'T-Shirt', colors: ['navy', 'grey'], images: {navy: './iceberg_navy.png', grey: './iceberg_grey.png'}, desc: 'Camiseta con iceberg logo. Diseño icónico.', hasSizes: true},
-  {id: 3, model: 'Iceberg', name: 'Hat', colors: ['navy'], images: {navy: './iceberg_hat_navy.png'}, desc: 'Gorra premium con logo Iceberg.', hasSizes: false}
+  {id: 3, model: 'Iceberg', name: 'Hat', colors: ['navy'], images: {navy: './iceberg_hat_navy.png'}, desc: 'Gorra premium con logo Iceberg.', hasSizes: false},
+  {id: 4, model: 'Sauna Hat', name: 'Sauna Hat', colors: ['grey'], images: {grey: './sauna_hat_grey.png'}, desc: 'Gorro de sauna de fieltro premium.', hasSizes: false, price: 20}
 ];
 
 let selectedProduct = null;
@@ -271,15 +272,17 @@ function initGallery() {
   let html = '';
 
   products.forEach(product => {
+    const defaultColor = product.colors[0];
+    const price = product.price || 30;
     html += `
       <div class="product-card" onclick="openDetail(${product.id})">
         <div class="card-image">
-          <img src="${product.images.navy}" alt="${product.model} ${product.name}">
+          <img src="${product.images[defaultColor]}" alt="${product.model} ${product.name}">
         </div>
         <div class="card-info">
           <div class="card-model">${product.model}</div>
           <div class="card-name">${product.name}</div>
-          <div class="card-price">$30</div>
+          <div class="card-price">$${price}</div>
         </div>
       </div>
     `;
@@ -290,12 +293,13 @@ function initGallery() {
 
 function openDetail(productId) {
   selectedProduct = products.find(p => p.id === productId);
-  selectedColor = 'navy';
+  selectedColor = selectedProduct.colors[0];
   selectedSize = '';
 
   document.getElementById('detailModel').textContent = selectedProduct.model + ' ';
   document.getElementById('detailName').textContent = selectedProduct.name;
-  document.getElementById('detailImage').src = selectedProduct.images.navy;
+  document.getElementById('detailPrice').textContent = selectedProduct.price || 30;
+  document.getElementById('detailImage').src = selectedProduct.images[selectedColor];
   document.getElementById('detailDesc').textContent = selectedProduct.desc;
 
   let colorsHtml = '';
@@ -345,9 +349,11 @@ function buyProduct() {
     return;
   }
 
-  const colorName = selectedColor === 'navy' ? 'Navy Blue' : 'Cold Grey';
+  const colorNames = {navy: 'Navy Blue', grey: 'Cold Grey'};
+  const colorName = colorNames[selectedColor] || selectedColor;
   const sizeText = selectedProduct.hasSizes ? `\nTalla: ${selectedSize}` : '';
-  const message = `Hola, me gustaría comprar:\n\n👕 ${selectedProduct.model} ${selectedProduct.name}\nColor: ${colorName}${sizeText}\nPrecio: $30 USD\nEnvío: Gratis`;
+  const price = selectedProduct.price || 30;
+  const message = `Hola, me gustaría comprar:\n\n👕 ${selectedProduct.model} ${selectedProduct.name}\nColor: ${colorName}${sizeText}\nPrecio: $${price} USD\nEnvío: Gratis`;
 
   const encoded = encodeURIComponent(message);
   window.location.href = `https://wa.me/584123136090?text=${encoded}`;
