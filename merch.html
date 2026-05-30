@@ -176,10 +176,10 @@ nav{position:fixed;inset:0 0 auto;z-index:999;display:flex;align-items:center;ju
 
 <script>
 const products = [
-  {id: 1, model: 'Vitalice Classic Fit', name: 'T-Shirt', colors: ['navy', 'grey'], images: {navy: 'tshirt_navy.png', grey: 'tshirt_grey.png'}, desc: 'Camiseta premium 100% Pima Cotton. Minimalista y versátil.'},
-  {id: 2, model: 'Iceberg Classic Fit', name: 'T-Shirt', colors: ['navy', 'grey'], images: {navy: 'iceberg_navy.png', grey: 'iceberg_grey.png'}, desc: 'Camiseta con iceberg logo. Diseño icónico.'}
+  {id: 1, model: 'Vitalice Classic Fit', name: 'T-Shirt', colors: ['navy', 'grey'], images: {navy: 'tshirt_navy.png', grey: 'tshirt_grey.png'}, desc: 'Camiseta premium 100% Pima Cotton. Minimalista y versátil.'}, hasSizes: true,
+  {id: 2, model: 'Iceberg Classic Fit', name: 'T-Shirt', colors: ['navy', 'grey'], images: {navy: 'iceberg_navy.png', grey: 'iceberg_grey.png'}, desc: 'Camiseta con iceberg logo. Diseño icónico.'}, hasSizes: true
 ,
-  {id: 3, model: 'Iceberg', name: 'Hat', colors: ['navy'], images: {navy: 'iceberg_hat_navy.png'}, desc: 'Gorra premium con logo Iceberg. Perfecta para cualquier clima.'}
+  {id: 3, model: 'Iceberg', name: 'Hat', colors: ['navy'], images: {navy: 'iceberg_hat_navy.png'}, desc: 'Gorra premium con logo Iceberg. Perfecta para cualquier clima.'}, hasSizes: false
 ];
 
 let selectedProduct = null;
@@ -219,17 +219,23 @@ function openDetail(productId) {
   document.getElementById('detailDesc').textContent = selectedProduct.desc;
 
   let colorsHtml = '';
-  selectedProduct.colors.forEach(color => {
-    const colorClass = color === 'navy' ? 'card-color-navy' : 'card-color-grey';
-    const colorName = color === 'navy' ? 'Navy Blue' : 'Cold Grey';
-    colorsHtml += `<button class="color-btn ${colorClass} ${color === 'navy' ? 'active' : ''}" onclick="changeDetailColor('${color}', this)" title="${colorName}"></button>`;
-  });
+  if (selectedProduct.colors.length > 1) {
+    selectedProduct.colors.forEach(color => {
+      const colorClass = color === 'navy' ? 'card-color-navy' : 'card-color-grey';
+      const colorName = color === 'navy' ? 'Navy Blue' : 'Cold Grey';
+      colorsHtml += `<button class="color-btn ${colorClass} ${color === 'navy' ? 'active' : ''}" onclick="changeDetailColor('${color}', this)" title="${colorName}"></button>`;
+    });
+  }
+  document.getElementById('detailColors').parentElement.style.display = selectedProduct.colors.length > 1 ? 'block' : 'none';
   document.getElementById('detailColors').innerHTML = colorsHtml;
 
   let sizesHtml = '';
-  ['S', 'M', 'L', 'XL'].forEach(size => {
-    sizesHtml += `<button class="size-btn" onclick="selectDetailSize('${size}', this)">${size}</button>`;
-  });
+  if (selectedProduct.hasSizes) {
+    ['S', 'M', 'L', 'XL'].forEach(size => {
+      sizesHtml += `<button class="size-btn" onclick="selectDetailSize('${size}', this)">${size}</button>`;
+    });
+  }
+  document.getElementById('detailSizes').parentElement.style.display = selectedProduct.hasSizes ? 'block' : 'none';
   document.getElementById('detailSizes').innerHTML = sizesHtml;
 
   document.getElementById('detailModal').classList.add('open');
@@ -254,7 +260,7 @@ function selectDetailSize(size, btn) {
 }
 
 function buyProduct() {
-  if (!selectedSize) {
+  if (selectedProduct.hasSizes && !selectedSize) {
     alert('Por favor selecciona una talla');
     return;
   }
