@@ -269,6 +269,15 @@ function buyProduct() {
 // Init
 initGallery();
 
+
+// Check if URL has a product hash and open detail
+if (window.location.hash) {
+  const productId = parseInt(window.location.hash.substring(1));
+  if (productId > 0) {
+    setTimeout(() => openDetail(productId), 100);
+  }
+}
+
 // Close modal on outside click
 document.getElementById('detailModal').addEventListener('click', (e) => {
   if (e.target === document.getElementById('detailModal')) closeDetail();
